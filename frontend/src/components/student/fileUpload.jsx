@@ -3,6 +3,8 @@ import Dropzone from "./dropzone/dropzone";
 import "./fileUpload.css";
 import Progress from "./progress/progress";
 
+//https://malcoded.com/posts/react-file-upload/
+
 class FileUpload extends Component {
   constructor(props) {
     super(props);
