@@ -1,4 +1,7 @@
-const studentSchema = new studentSchema({
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const Student = new Schema({
     regNumber : {
         type : String,
         length : 10,
@@ -8,7 +11,14 @@ const studentSchema = new studentSchema({
         type : String,
         required : true,
     },
-    dob : {
+    email : {
+        type : String,
+        required : true,
+    },
+    phone : {
+        type : String,    
+    },
+    dateOfBirth : {
         type : Date,
         required : true
     },
@@ -26,3 +36,5 @@ const studentSchema = new studentSchema({
         type : Array,
     },
 })
+
+module.exports = mongoose.model('student',Student)
