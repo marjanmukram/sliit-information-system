@@ -23,7 +23,7 @@ router.get('/get', (req,res) => {
 
 //Get a particular student details
 router.get('/get/:id', (req,res) => {
-    Student.findById(req.params.id)
+    Student.find({"regNumber":req.params.id})
         .then( student  => {
             res.status(400).send({"message":"Sucuessfully retrieced the student's data", "data":student})
         }).catch( err => {
@@ -33,9 +33,9 @@ router.get('/get/:id', (req,res) => {
 
 //Update a particular student detail
 router.put('/update/:id', (req,res) => {
-    Student.updateOne({'_id':req.params.id}, req.body)
+    Student.updateOne({'regNumber':req.params.id}, req.body)
         .then( student => {
-            res.status(200).send({"message":"Sucuessfully updated a particular student", "data":student})
+            res.status(200).send({"message":"Sucuessfully updated", "data":student})
         }).catch( err => {
             res.status(400).send({err});
         })
@@ -43,9 +43,9 @@ router.put('/update/:id', (req,res) => {
 
 //Delete a student by regid
 router.delete('/delete/:id', (req,res) => {
-    Student.deleteOne({'_id':req.params.id})
+    Student.deleteOne({'regNumber':req.params.id})
         .then( student => {
-            res.status(200).send({"message":"Deleted the student", "data":admin})
+            res.status(200).send({"message":"Deleted the student", "data":student})
         }).catch( err => {
             res.status(400).send({err})
         })
