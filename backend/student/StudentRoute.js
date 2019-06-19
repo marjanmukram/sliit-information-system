@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Student = require('../models/Student')
+const incomingForm = require('formidable').IncomingForm;
+
 
 //Add student details
 router.post('/add', (req, res) => {
@@ -50,5 +52,19 @@ router.delete('/delete/:id', (req,res) => {
             res.status(400).send({err})
         })
 })
+
+router.post('/upload', (req, res) => {
+    const form = new IncomingForm()
+  
+    form.on('file', (field, file) => {
+      // Do something with the file
+      // e.g. save it to the database
+      // you can access it using file.path
+    })
+    form.on('end', () => {
+      res.json()
+    })
+    form.parse(req)
+  });
 
 module.exports = router;
