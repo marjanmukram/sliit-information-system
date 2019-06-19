@@ -72,7 +72,7 @@ class FileUpload extends Component {
 
       const formData = new FormData();
       formData.append("file", file, file.name);
-
+      console.log("file upload ", file);
       req.open("POST", "http://localhost:4000/upload");
       req.send(formData);
     });
