@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Student = require('../models/Student')
-const IncomingForm = require('formidable').IncomingForm;
+
 
 
 //Add student details
@@ -53,18 +53,12 @@ router.delete('/delete/:id', (req,res) => {
         })
 })
 
-router.post('/upload', (req, res) => {
-    const form = new IncomingForm()
-  
-    form.on('file', (field, file) => {
-      // Do something with the file
-      // e.g. save it to the database
-      // you can access it using file.path
-    })
-    form.on('end', () => {
-      res.json()
-    })
-    form.parse(req)
-  });
-
+router.put('upload/:id', (req, res) => {
+    Student.findOneAndUpdate({'regNumber':req.params.id},{ $push: { assignments: req.body.filePath || "path" } })
+        .then( path => {
+            res.status(200).send({"message":"Assignemnt updated", "data":path})
+        }).catch( err => {
+            res.status(400).send({err})
+        })
+})
 module.exports = router;
