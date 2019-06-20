@@ -17,7 +17,8 @@ const AssignmentSchema = new Schema({
     required: true
   },
   assignmentFileUrl: {
-    type: String
+    type: String,
+    default: ""
   },
   submissions: [
     {
