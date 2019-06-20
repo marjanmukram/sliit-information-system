@@ -1,4 +1,5 @@
 const Assignment = require("../models/Assignment.model");
+const CourseController = require("../Course/Course.controller");
 
 const AssignmentController = function() {
   // Insert Assignment details
@@ -13,12 +14,26 @@ const AssignmentController = function() {
       assignment
         .save()
         .then(newAssignment => {
-          resolve({
-            status: 200,
-            confirmation: "Success",
-            message: "Assignment saved successfully",
-            data: newAssignment
-          });
+          // Update assignment list in Courses document
+          CourseController.updateAssignmentList(
+            newAssignment.course,
+            newAssignment._id
+          )
+            .then(() => {
+              resolve({
+                status: 200,
+                confirmation: "Success",
+                message: "Assignment saved successfully",
+                data: newAssignment
+              });
+            })
+            .catch(err => {
+              reject({
+                status: 500,
+                confirmation: "Fail",
+                message: "Error" + err
+              });
+            });
         })
         .catch(err => {
           reject({ status: 500, confirmation: "Fail", message: "Error" + err });
@@ -30,8 +45,8 @@ const AssignmentController = function() {
   this.getAll = () => {
     return new Promise((resolve, reject) => {
       Assignment.find()
-        .populate({ path: "course", model: "Course" })
-        .populate({ path: "submissions", model: "Submission" })
+        .populate({ path: "course", select: "code name", model: "Course" }) // project(returns) only code, name properties of Course
+        // .populate({ path: "submissions", model: "Submission" })
         .then(assignments => {
           resolve({ status: 200, confirmation: "Success", data: assignments });
         })
@@ -46,7 +61,7 @@ const AssignmentController = function() {
     return new Promise((resolve, reject) => {
       Assignment.findById(id)
         .populate({ path: "course", model: "Course" })
-        .populate({ path: "submissions", model: "Submission" })
+        // .populate({ path: "submissions", model: "Submission" })
         .then(assignment => {
           assignment
             ? resolve({

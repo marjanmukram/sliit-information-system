@@ -11,7 +11,8 @@ const CourseController = function() {
           resolve({
             status: 200,
             confirmation: "Success",
-            message: "Course Added Successfully"
+            message: "Course Added Successfully",
+            data: data
           });
         })
         .catch(err => {

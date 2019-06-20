@@ -52,7 +52,7 @@ router.put("/:id", (req, res) => {
 
 // Delete Assignment
 // http://localhost:4000/api/assignments/:id
-router.put("/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
   AssignmentController.deleteAssignment(req.params.id)
     .then(data => {
       res.status(data.status).json(data);
