@@ -20,7 +20,7 @@ class FileUpload extends React.Component {
     data.append('regNumber', "IT0001234567");//Hardcoded for now
     //data.append('assignmentId', "Ass_123");//Hardcoded for now
     data.append('fileUrl', 'public/'+this.fileName.value+'.pdf');//Hardcoded for now
-    data.append('dateSubmitted', Date.now());//Hardcoded for now
+    data.append('dateSubmitted', new Date());//Hardcoded for now
     fetch('http://localhost:4000/api/submissions', {
       method: 'POST',
       body: data,
