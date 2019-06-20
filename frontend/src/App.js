@@ -2,14 +2,13 @@ import React from 'react';
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from './components/Login'
-import fileUpload from './components/student/fileUpload'
-import FileUpload from './components/student/fileUpload';
+/* import StudentSubmissionForm from './components/student/submissionForm'; */
 
 function App() {
   return (
     <div className="App">
-      <Login/>
-      <FileUpload />
+       <Login/> 
+      {/* <StudentSubmissionForm /> */}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './fileUpload.css'
 class FileUpload extends React.Component {
   constructor(props) {
     super(props);
@@ -34,14 +34,23 @@ class FileUpload extends React.Component {
     return (
       <form onSubmit={this.handleUploadImage}>
         <div>
-          <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
+          <input 
+            className="fileInput"
+            ref={(ref) => { this.uploadInput = ref; }} 
+            type="file" 
+          />
         </div>
         <div>
-          <input ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Enter the desired name of file" />
+          <input 
+            className="assignmentId" 
+            ref={(ref) => { this.fileName = ref; }} 
+            type="text" 
+            placeholder="Enter the assigment/exam id" 
+          />
         </div>
         <br />
         <div>
-          <button>Upload</button>
+          <button className="button">Upload</button>
         </div>
         {/* <img src={this.state.imageURL} alt="img" /> */}
       </form>
