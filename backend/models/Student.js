@@ -27,11 +27,11 @@ const Student = new Schema({
         required : true,
     },
     assignments : [{
-        type : Schema.types.ObjectId,
+        // type : Schema.types.ObjectId,
         //ref : Assignments
     }],
     courses : [{
-        type : Schema.types.ObjectId,
+        // type : Schema.types.ObjectId,
       //  ref : Course
     }],
     exams : [{
