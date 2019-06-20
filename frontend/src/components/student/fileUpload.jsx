@@ -18,8 +18,9 @@ class FileUpload extends React.Component {
     data.append('file', this.uploadInput.files[0]);
     data.append('filename', this.fileName.value);
     data.append('regNumber', "IT0001234567");//Hardcoded for now
-    data.append('assignmentId', "Ass_123");//Hardcoded for now
-    data.append('url', 'public/'+this.fileName.value+'.pdf');//Hardcoded for now
+    //data.append('assignmentId', "Ass_123");//Hardcoded for now
+    data.append('fileUrl', 'public/'+this.fileName.value+'.pdf');//Hardcoded for now
+    data.append('dateSubmitted', Date.now());//Hardcoded for now
     fetch('http://localhost:4000/api/submissions', {
       method: 'POST',
       body: data,
@@ -37,7 +38,8 @@ class FileUpload extends React.Component {
           <input 
             className="fileInput"
             ref={(ref) => { this.uploadInput = ref; }} 
-            type="file" 
+            type="file"
+            accept="image/png, image/jpg, .doc,.docx, .pdf, " 
           />
         </div>
         <div>
