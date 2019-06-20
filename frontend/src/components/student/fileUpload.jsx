@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './fileUpload.css'
 class FileUpload extends React.Component {
   constructor(props) {
     super(props);
@@ -17,9 +17,11 @@ class FileUpload extends React.Component {
     const data = new FormData();
     data.append('file', this.uploadInput.files[0]);
     data.append('filename', this.fileName.value);
-
-    fetch('http://localhost:4000/api/student/upload/IT16174672', {
-      method: 'PUT',
+    data.append('regNumber', "IT0001234567");//Hardcoded for now
+    data.append('assignmentId', "Ass_123");//Hardcoded for now
+    data.append('url', 'public/'+this.fileName.value+'.pdf');//Hardcoded for now
+    fetch('http://localhost:4000/api/submissions', {
+      method: 'POST',
       body: data,
     }).then((response) => {
 /*       response.json().then((body) => {
@@ -32,14 +34,23 @@ class FileUpload extends React.Component {
     return (
       <form onSubmit={this.handleUploadImage}>
         <div>
-          <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
+          <input 
+            className="fileInput"
+            ref={(ref) => { this.uploadInput = ref; }} 
+            type="file" 
+          />
         </div>
         <div>
-          <input ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Enter the desired name of file" />
+          <input 
+            className="assignmentId" 
+            ref={(ref) => { this.fileName = ref; }} 
+            type="text" 
+            placeholder="Enter the assigment/exam id" 
+          />
         </div>
         <br />
         <div>
-          <button>Upload</button>
+          <button className="button">Upload</button>
         </div>
         {/* <img src={this.state.imageURL} alt="img" /> */}
       </form>
