@@ -27,8 +27,8 @@ const Student = new Schema({
         required : true,
     },
     assignments : [{
-        // type : Schema.types.ObjectId,
-        //ref : Assignments
+         type : Array,
+        
     }],
     courses : [{
         // type : Schema.types.ObjectId,
