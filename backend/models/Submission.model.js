@@ -17,6 +17,14 @@ const SubmissionSchema = new Schema({
   },
   marks: {
     type: Number
+  },
+  examId: {
+    type: ObjectId,
+    ref: "Exam"
+  },
+  assignmentId: {
+    type: ObjectId,
+    ref: "Assignment"
   }
 });
 
