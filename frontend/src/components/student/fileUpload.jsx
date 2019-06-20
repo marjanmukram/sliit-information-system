@@ -17,8 +17,10 @@ class FileUpload extends React.Component {
     const data = new FormData();
     data.append('file', this.uploadInput.files[0]);
     data.append('filename', this.fileName.value);
-
-    fetch('http://localhost:4000/api/student/upload/123', {
+    data.append('regNumber', "IT0001234567");//Hardcoded for now
+    data.append('assignmentId', "Ass_123");//Hardcoded for now
+    data.append('url', 'public/'+this.fileName.value+'.pdf');//Hardcoded for now
+    fetch('http://localhost:4000/api/submissions', {
       method: 'POST',
       body: data,
     }).then((response) => {
