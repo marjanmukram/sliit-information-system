@@ -5,10 +5,12 @@ var routes = express.Router();
 
 var AdminRoute = require("./admin/AdminRoute");
 const AssignmentRoute = require("./Assignment/Assignment.route");
+const CourseRoute = require("./Course/Course.route");
 
 /** routes the request to the specified class */
 
 routes.use("/admin", AdminRoute);
 routes.use("/assignments", AssignmentRoute);
+routes.use("/courses", CourseRoute);
 
 module.exports = routes;
