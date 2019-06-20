@@ -1,4 +1,5 @@
 const Course = require("../models/Course.model");
+const Instructor = require("../models/Instructor");
 
 const CourseController = function() {
   //Insert Course details
@@ -8,6 +9,23 @@ const CourseController = function() {
       course
         .save()
         .then(data => {
+          // Update Instructor's course list
+          // let instructors = data.instructors;
+          // instructors.forEach(instructorId => {
+          //   let promises = [];
+          //   Instructor.findById(instructorId).then(instructor => {
+          //     instructor.courses.push(data._id)
+          //     // add to promises array
+          //     promises.push(instructor.save());
+          //   }).catch(err => {
+          //     reject({
+          //       status: 500,
+          //       confirmation: "Fail",
+          //       message: "Error: " + err
+          //     });
+          //   });
+          // });
+
           resolve({
             status: 200,
             confirmation: "Success",
@@ -32,7 +50,7 @@ const CourseController = function() {
         // .populate({ path: "students", model: "Student" })
         // .populate({ path: "instructors", model: "Instructor" })
         .populate({ path: "assignments", model: "Assignment" })
-        // .populate({ path: "exams", model: "Exam" })
+        .populate({ path: "exams", model: "Exam" })
         .then(courses => {
           resolve({ status: 200, confirmation: "Success", data: courses });
         })
@@ -53,7 +71,7 @@ const CourseController = function() {
         // .populate({ path: "students", model: "Student" })
         // .populate({ path: "instructors", model: "Instructor" })
         .populate({ path: "assignments", model: "Assignment" })
-        // .populate({ path: "exams", model: "Exam" })
+        .populate({ path: "exams", model: "Exam" })
         .then(course => {
           course
             ? resolve({ status: 200, confirmation: "Success", data: course })
@@ -180,7 +198,7 @@ const CourseController = function() {
   };
 
   // Update Exams List
-  this.updateExamsList = (id, examId) => {
+  this.updateExamList = (id, examId) => {
     return new Promise((resolve, reject) => {
       // Find Course using id, update exams array then save.
       Course.findById(id)
