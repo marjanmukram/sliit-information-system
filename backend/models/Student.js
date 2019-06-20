@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+//const Course = 
 const Student = new Schema({
     regNumber : {
         type : String,
@@ -26,15 +26,18 @@ const Student = new Schema({
         type : String,
         required : true,
     },
-    assignments : {
-        type : Array,
-    },
-    courses : {
-        type : Array,
-    },
-    exams : {
-        type : Array,
-    },
+    assignments : [{
+        type : Schema.types.ObjectId,
+        //ref : Assignments
+    }],
+    courses : [{
+        type : Schema.types.ObjectId,
+      //  ref : Course
+    }],
+    exams : [{
+        //type : Schema.types.ObjectId,
+        //ref : Exams
+    }],
 })
 
 module.exports = mongoose.model('student',Student)
