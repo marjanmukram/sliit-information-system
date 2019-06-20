@@ -18,13 +18,13 @@ class FileUpload extends React.Component {
     data.append('file', this.uploadInput.files[0]);
     data.append('filename', this.fileName.value);
 
-    fetch('http://localhost:8000/api/student/upload/IT16174672', {
+    fetch('http://localhost:4000/api/student/upload/IT16174672', {
       method: 'PUT',
       body: data,
     }).then((response) => {
-      response.json().then((body) => {
-        this.setState({ imageURL: `http://localhost:8000/${body.file}` });
-      });
+/*       response.json().then((body) => {
+        this.setState({ imageURL: `http://localhost:4000/${body.file}` });
+      }); */
     });
   }
 
@@ -41,7 +41,7 @@ class FileUpload extends React.Component {
         <div>
           <button>Upload</button>
         </div>
-        <img src={this.state.imageURL} alt="img" />
+        {/* <img src={this.state.imageURL} alt="img" /> */}
       </form>
     );
   }
