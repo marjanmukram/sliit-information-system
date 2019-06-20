@@ -52,7 +52,7 @@ router.delete('/delete/:id', (req,res) => {
             res.status(400).send({err})
         })
 })
-
+// Upload a assignment
 router.put('upload/:id', (req, res) => {
     Student.findOneAndUpdate({'regNumber':req.params.id},{ $push: { assignments: req.body.filePath || "path" } })
         .then( path => {
