@@ -16,6 +16,9 @@ const AssignmentSchema = new Schema({
     type: Date,
     required: true
   },
+  assignmentFileUrl: {
+    type: String
+  },
   submissions: [
     {
       type: ObjectId,

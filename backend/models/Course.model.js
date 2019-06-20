@@ -13,7 +13,7 @@ const CourseSchema = new Schema({
   },
   available: {
     type: Boolean,
-    required: true
+    default: false
   },
   instructors: [
     {

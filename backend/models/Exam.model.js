@@ -16,6 +16,14 @@ const ExamSchema = new Schema({
     type: Date,
     required: true
   },
+  examLink: {
+    type: String,
+    default: ""
+  },
+  examFileUrl: {
+    type: String,
+    default: ""
+  },
   submissions: [
     {
       type: ObjectId,
