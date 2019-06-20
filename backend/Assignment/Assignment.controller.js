@@ -46,7 +46,7 @@ const AssignmentController = function() {
     return new Promise((resolve, reject) => {
       Assignment.find()
         .populate({ path: "course", select: "code name", model: "Course" }) // project(returns) only code, name properties of Course
-        // .populate({ path: "submissions", model: "Submission" })
+        .populate({ path: "submissions", model: "Submission" })
         .then(assignments => {
           resolve({ status: 200, confirmation: "Success", data: assignments });
         })
