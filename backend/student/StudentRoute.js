@@ -66,7 +66,7 @@ router.delete('/delete/:id', (req,res) => {
   
 //   })
 
-router.put('upload/:id', (req, res) => {
+router.post('/upload/:id', (req, res) => {
     let imageFile = req.files.file;
     imageFile.mv(`${__dirname}/public/${req.body.filename}.pdf`, function(err) {
         if (err) {
