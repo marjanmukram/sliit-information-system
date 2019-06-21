@@ -4,6 +4,7 @@ const Student = require('../models/Student')
 const StudentController = require("../student/StudentController");
 
 //Add student details
+//http://localhost:4000/api/student/add
 router.post('/add', (req, res) => {
     const student =  new Student(req.body);
     student.save()
