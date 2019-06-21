@@ -1,4 +1,5 @@
 const Student = require("../models/Student");
+const CourseController = require("../Course/Course.controller");
 
 const StudentController = function() {
   // Update Courses List of Student
@@ -12,10 +13,19 @@ const StudentController = function() {
             student
               .save()
               .then(() => {
-                resolve({
-                  status: 200,
-                  confirmation: "Success",
-                  message: "Updated Courses List"
+                CourseController.updateStudentList(courseId, id)
+                  .then(() => {
+                    resolve({
+                      status: 200,
+                      confirmation: "Success",
+                      message: "Updated Courses List"
+                    });
+                  })
+                  .catch();
+                reject({
+                  status: 500,
+                  confirmation: "Fail",
+                  message: "Error: " + err
                 });
               })
               .catch(err => {
