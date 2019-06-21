@@ -2,6 +2,7 @@ import React from 'react'
 import Assignment from './assignment'
 import SubmissionForm from './submissionForm'
 
+
 class ViewAssignemnts extends React.PureComponent{
     constructor(props){
         super(props);
@@ -11,6 +12,7 @@ class ViewAssignemnts extends React.PureComponent{
     }
 
     componentDidMount(){
+
         fetch("http://localhost:4000/api/assignments",{
             method: 'GET',
         }).then((response) => {
