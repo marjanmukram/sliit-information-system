@@ -1,7 +1,6 @@
 const Submission = require("../models/Submission.model");
 const AssignmentController = require("../Assignment/Assignment.controller");
 const ExamController = require("../Exam/Exam.controller");
-const StudentController = require("../student/StudentController");
 
 const SubmissionController = function() {
   //Insert Submission details
@@ -19,26 +18,12 @@ const SubmissionController = function() {
                 data._id
               )
                 .then(() => {
-                  // update submissions list of student
-                  StudentController.updateSubmissionList(
-                    data.studentId,
-                    data._id
-                  ) // studentId, submissionId
-                    .then(() => {
-                      resolve({
-                        status: 200,
-                        confirmation: "Success",
-                        message: "Submission Added Successfully",
-                        data: data
-                      });
-                    })
-                    .catch(err => {
-                      eject({
-                        status: 500,
-                        confirmation: "Fail",
-                        message: "Error: " + err
-                      });
-                    });
+                  resolve({
+                    status: 200,
+                    confirmation: "Success",
+                    message: "Submission Added Successfully",
+                    data: data
+                  });
                 })
                 .catch(err => {
                   reject({
@@ -51,26 +36,12 @@ const SubmissionController = function() {
               // exam submission
               ExamController.updateSubmissionList(data.examId, data._id)
                 .then(() => {
-                  // update submissions list of student
-                  StudentController.updateSubmissionList(
-                    data.studentId,
-                    data._id
-                  ) // studentId, submissionId
-                    .then(() => {
-                      resolve({
-                        status: 200,
-                        confirmation: "Success",
-                        message: "Submission Added Successfully",
-                        data: data
-                      });
-                    })
-                    .catch(err => {
-                      reject({
-                        status: 500,
-                        confirmation: "Fail",
-                        message: "Error: " + err
-                      });
-                    });
+                  resolve({
+                    status: 200,
+                    confirmation: "Success",
+                    message: "Submission Added Successfully",
+                    data: data
+                  });
                 })
                 .catch(err => {
                   reject({
