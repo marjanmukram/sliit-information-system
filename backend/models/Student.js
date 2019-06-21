@@ -27,24 +27,16 @@ const Student = new Schema({
     type: String,
     required: true
   },
-  //   assignments: [
-  //     {
-  //       type: ObjectId,
-  //       ref: "Assignment"
-  //     }
-  //   ],
+  password: {
+    type: String,
+    required: true
+  },
   courses: [
     {
       type: ObjectId,
       ref: "Course"
     }
   ],
-  //   exams: [
-  //     {
-  //       type: ObjectId,
-  //       ref: "Exam"
-  //     }
-  //   ],
   submissions: [
     {
       type: ObjectId,

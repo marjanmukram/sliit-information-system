@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import '../stylesheet/admin.css'
+import axios from 'axios'
 
 export default class Login extends Component{
 
@@ -21,7 +22,7 @@ export default class Login extends Component{
             if(regNo.startsWith("A") || regNo.startsWith("a")){
                 axios.get('http://localhost:4000/api/admin/get/',)
                 .then(response => this.setState({ todos: response.data }))
-                .catch(err => console.log(error))
+                .catch(err => console.log(err))
             } else if(regNo.startsWith("S") || regNo.startsWith("s")){
                 console.log("Student");
             } else if(regNo.startsWith("I") || regNo.startsWith("i")){
