@@ -3,7 +3,7 @@ const router = express.Router();
 const Student = require('../models/Student')
 const StudentController = require("../student/StudentController");
 
-//Add student detailsnpm install 
+//Add student details
 router.post('/add', (req, res) => {
     const student =  new Student(req.body);
     student.save()
