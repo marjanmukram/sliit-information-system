@@ -6,32 +6,46 @@ const CourseController = function() {
   this.create = data => {
     return new Promise((resolve, reject) => {
       let course = new Course(data);
+
       course
         .save()
         .then(data => {
           // Update Instructor's course list
-          // let instructors = data.instructors;
-          // instructors.forEach(instructorId => {
-          //   let promises = [];
-          //   Instructor.findById(instructorId).then(instructor => {
-          //     instructor.courses.push(data._id)
-          //     // add to promises array
-          //     promises.push(instructor.save());
-          //   }).catch(err => {
-          //     reject({
-          //       status: 500,
-          //       confirmation: "Fail",
-          //       message: "Error: " + err
-          //     });
-          //   });
-          // });
-
-          resolve({
-            status: 200,
-            confirmation: "Success",
-            message: "Course Added Successfully",
-            data: data
+          let instructors = data.instructors;
+          let promises = [];
+          // Loop through each instructor id, get the instructor and update the instructor's courses list.
+          instructors.forEach(instructorId => {
+            Instructor.findById(instructorId)
+              .then(instructor => {
+                instructor.courses.push(data._id);
+                // add to promises array
+                promises.push(instructor.save());
+              })
+              .catch(err => {
+                reject({
+                  status: 500,
+                  confirmation: "Fail",
+                  message: "Error: " + err
+                });
+              });
           });
+
+          Promise.all(promises)
+            .then(() => {
+              resolve({
+                status: 200,
+                confirmation: "Success",
+                message: "Course Added Successfully",
+                data: data
+              });
+            })
+            .catch(err => {
+              reject({
+                status: 500,
+                confirmation: "Fail",
+                message: "Error: " + err
+              });
+            });
         })
         .catch(err => {
           reject({
