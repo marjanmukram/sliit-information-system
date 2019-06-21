@@ -66,7 +66,7 @@ router.post('/upload/:id', (req, res) => {
 })
 
 //Student joining the course
-router.put('/joinCourse/:id', (req,res) => {
+router.put('/join-course/:id', (req,res) => {
     //Use the controller method
     StudentController.updateCourseList(req.params.id, req.body.courseId)
         .then( student => {
