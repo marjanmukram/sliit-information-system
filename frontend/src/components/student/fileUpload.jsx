@@ -25,6 +25,10 @@ class FileUpload extends React.Component {
       method: 'POST',
       body: data,
     }).then((response) => {
+      fetch('http://localhost:4000/api/student/upload/123', {
+        method: 'POST',
+        body: data,
+    })
 /*       response.json().then((body) => {
         this.setState({ imageURL: `http://localhost:4000/${body.file}` });
       }); */

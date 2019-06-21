@@ -45,7 +45,7 @@ class ViewCourses extends React.PureComponent{
                                     name={course.name} 
                                     selectedCourse={course}
                                 />
-                                {this.state.selectedCourse && this.state.selectedCourse._id === course._id && <ViewAssignemnts /* selectedCourse={selectedCourse} *//> }
+                                {this.state.selectedCourse && this.state.selectedCourse._id === course._id && <ViewAssignemnts  assignments={this.state.selectedCourse.assignments} /> }
                             </div>
                         )
                     })}
