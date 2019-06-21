@@ -1,6 +1,5 @@
 import React from 'react'
 import FileUpload from './fileUpload'
-import ViewAssignemnts from './viewAssignments'
 
 class SubmissionForm extends React.Component{
     render(){
@@ -11,7 +10,6 @@ class SubmissionForm extends React.Component{
                 </div>
                 <h2>Upload your assignments here</h2>
                 <FileUpload />
-                <ViewAssignemnts />
             </div>
         )
     }

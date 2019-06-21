@@ -24,12 +24,12 @@ class ViewAssignemnts extends React.PureComponent{
     
     render(){
         return(
-            <div>
+            <div class="container">
                 <h2>View Assigments page</h2>
                 <div>
                     {this.state.assignments && this.state.assignments.length > 0 && this.state.assignments.map( (ass) => {
                         return(
-                            <div 
+                            <div class="card"
                                 key={ass._id}
                                 onClick={() => this.setState({ selectedAssignment:ass })}
                             >

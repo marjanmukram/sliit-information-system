@@ -24,12 +24,13 @@ class ViewCourses extends React.PureComponent{
     
     render(){
         return(
-            <div>
+            <div class="container">
                 <h2>View Courses page</h2>
                 <div>
                     {this.state.courses && this.state.courses.length > 0 && this.state.courses.map( (course) => {
                         return(
                             <div 
+                                class="card"
                                 key={course._id}
                                 onClick={ () => {
                                         this.setState({ selectedCourse:course })
