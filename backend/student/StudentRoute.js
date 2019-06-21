@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Student = require('../models/Student')
+const StudentController = require("../student/StudentController");
 
-//Add student detailsnpm install 
+//Add student details
+//http://localhost:4000/api/student/add
 router.post('/add', (req, res) => {
     const student =  new Student(req.body);
     student.save()
@@ -50,21 +52,8 @@ router.delete('/delete/:id', (req,res) => {
             res.status(400).send({err})
         })
 })
-// Upload a assignment
 
-// router.post('/upload', (req, res, next) => {
-//     console.log(req);
-//     let imageFile = req.files.file;
-  
-//     imageFile.mv(`${__dirname}/public/${req.body.filename}.pdf`, function(err) {
-//       if (err) {
-//         return res.status(500).send(err);
-//       }
-  
-//       res.json({file: `public/${req.body.filename}.pdf`});
-//     });
-  
-//   })
+// Upload a assignment
 
 router.post('/upload/:id', (req, res) => {
     let imageFile = req.files.file;
@@ -75,12 +64,17 @@ router.post('/upload/:id', (req, res) => {
     
         res.json({file: `public/${req.body.filename}.pdf`});
       });
-    
-    // Student.findOneAndUpdate({'regNumber':req.params.id},{ $push: { assignments: req.files.filename || "path" } })
-    //     .then( path => {
-    //         res.status(200).send({"message":"Assignemnt updated", "data":path})
-    //     }).catch( err => {
-    //         res.status(400).send({err})
-    //     })
 })
+
+//Student joining the course
+router.put('/join-course/:id', (req,res) => {
+    //Use the controller method
+    StudentController.updateCourseList(req.params.id, req.body.courseId)
+        .then( student => {
+            res.status(200).send({"message":"Sucuessfully joined the course", "data":student})
+        }).catch( err => {
+            res.status(400).send({err});
+        })
+})
+
 module.exports = router;
