@@ -1,7 +1,5 @@
 const mongoose = require('mongoose')
 const schema = mongoose.Schema
-// const course = require('./Course')
-const course;
 
 var Instructor = new schema({
     regId:{
@@ -32,13 +30,16 @@ var Instructor = new schema({
         type:String,
         required:true
     },
-    dateOfBirth:{
-        type:Date,
+    gender:{
+        type:String,
         required:true
+    },
+    dateOfBirth:{
+        type:Date
     },
     courses:[{
         type:schema.Types.ObjectId,
-        ref:course
+        ref:'Course'
     }]
 })
 

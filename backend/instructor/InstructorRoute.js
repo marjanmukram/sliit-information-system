@@ -27,6 +27,19 @@ router.get('/get/:id', (req,res) => {
         .catch((err) => res.status(400).send({"message":err}))
 });
 
+// Get an instructor details using GET method
+// http://localhost:4000/api/instructor/getByReg/ + regId
+router.get('/getByReg/:regId', (req,res) => {
+    Instructor.find({'regId':req.params.regId})
+        .then((instructor) => {
+            if(!instructor.length){
+                res.status(400).send({"message":"error"});
+            } else{
+                res.status(200).send({"message":"Successfully retrived","data":instructor});
+            }
+        })
+});
+
 // Update an instructor details using PUT method
 // http://localhost:4000/api/instructor/update + id
 router.put('/update/:id', (req,res) => {
