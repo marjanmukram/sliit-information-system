@@ -3,7 +3,7 @@ const AssignmentController = require("../Assignment/Assignment.controller");
 const ExamController = require("../Exam/Exam.controller");
 const StudentController = require("../student/StudentController");
 
-const SubmissionController = function() {
+const SubmissionController = function () {
   //Insert Submission details
   this.create = data => {
     return new Promise((resolve, reject) => {
@@ -33,7 +33,7 @@ const SubmissionController = function() {
                       });
                     })
                     .catch(err => {
-                      eject({
+                      reject({
                         status: 500,
                         confirmation: "Fail",
                         message: "Error: " + err
@@ -121,15 +121,15 @@ const SubmissionController = function() {
         .then(submission => {
           submission
             ? resolve({
-                status: 200,
-                confirmation: "Success",
-                data: submission
-              })
+              status: 200,
+              confirmation: "Success",
+              data: submission
+            })
             : reject({
-                status: 404,
-                confirmation: "Fail",
-                message: "Submission Not Found"
-              });
+              status: 404,
+              confirmation: "Fail",
+              message: "Submission Not Found"
+            });
         })
         .catch(err => {
           reject({ status: 500, confirmation: "Fail", message: "Error" + err });
@@ -145,15 +145,15 @@ const SubmissionController = function() {
         submission => {
           submission
             ? resolve({
-                status: 200,
-                confirmation: "Success",
-                data: submission
-              })
+              status: 200,
+              confirmation: "Success",
+              data: submission
+            })
             : reject({
-                status: 404,
-                confirmation: "Fail",
-                message: "Submission Not Found"
-              });
+              status: 404,
+              confirmation: "Fail",
+              message: "Submission Not Found"
+            });
         }
       );
     });
@@ -166,15 +166,15 @@ const SubmissionController = function() {
         .then(deletedSubmission => {
           deletedSubmission
             ? resolve({
-                status: 200,
-                confirmation: "Success",
-                message: "Successfully deleted Submission"
-              })
+              status: 200,
+              confirmation: "Success",
+              message: "Successfully deleted Submission"
+            })
             : reject({
-                status: 404,
-                confirmation: "Fail",
-                message: "Submission Not Found"
-              });
+              status: 404,
+              confirmation: "Fail",
+              message: "Submission Not Found"
+            });
         })
         .catch(err => {
           reject({
