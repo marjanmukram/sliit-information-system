@@ -13,8 +13,6 @@ export default class AdminHome extends Component{
     render(){
         return(
             <div>
-                <Nav buttonType="logout"/>
-
                 <div className="card" style={{width:"18rem"}}>
                 {/* <img src="..." class="card-img-top" alt="..."/> */}
                 <div className="card-body">

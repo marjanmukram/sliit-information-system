@@ -1,13 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const Instructor = require('../models/Instructor')
+var send_mail = require('../external_service/send_mail'); 
 
 // Add an Instructor details using POST method
 // http://localhost:4000/api/instructor/add & Request Body
 router.post('/add', (req,res) => {
     const instructor = new Instructor(req.body);
     instructor.save()
-        .then(() => res.status(200).send({"message":"Successfully added instructor"}))
+        .then(() =>{ 
+            res.status(200).send({"message":"Successfully added instructor"})
+            send_mail.mail(req.body.email, req.body.regId, req.body.password);
+        })
         .catch((err) => res.status(400).send({"message":err}))
 });
 
