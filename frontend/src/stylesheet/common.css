@@ -6,18 +6,24 @@
     font-family:"Quicksand";
     position: relative;
     float: right;
-    margin-left: 1450px;
+    margin-left: 1650px;
 }
 
 .logout-button {
     font-family:"Quicksand";
     float: right;
-    margin-left:1450px;
+    margin-left:1650px;
+}
+
+.signup-form{
+    width: 600px;
+    margin-top: 70px;
 }
 
 .form {
     width: 600px;
-    margin-top: 100px;
+    margin-top: 70px;
+    margin-left: 800px;
 }
 
 .home-image {
@@ -56,7 +62,7 @@
 .user-id {
     color: white;
     font-family:"Quicksand";
-    margin-left: 1300px;
+    margin-left: 1500px;
 }
 
 .nav-row {
@@ -79,4 +85,24 @@
 .table-main {
     position: relative;
     margin-top: 40px;
+    margin-left: 120px;
+}
+
+.icon-drop {
+    float: right;
+}
+
+.side-title {
+    font-family:"Quicksand";
+    font-size: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.linker {
+    margin-left: 40px;
+}
+
+.head-font {
+    margin-left: 180px;
 }
