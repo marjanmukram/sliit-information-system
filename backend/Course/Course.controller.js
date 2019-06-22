@@ -1,7 +1,7 @@
 const Course = require("../models/Course.model");
 const Instructor = require("../models/Instructor");
 
-const CourseController = function() {
+const CourseController = function () {
   //Insert Course details
   this.create = data => {
     return new Promise((resolve, reject) => {
@@ -90,10 +90,10 @@ const CourseController = function() {
           course
             ? resolve({ status: 200, confirmation: "Success", data: course })
             : reject({
-                status: 404,
-                confirmation: "Fail",
-                message: "Course Not Found"
-              });
+              status: 404,
+              confirmation: "Fail",
+              message: "Course Not Found"
+            });
         })
         .catch(err => {
           reject({
@@ -113,15 +113,15 @@ const CourseController = function() {
         course => {
           course
             ? resolve({
-                status: 200,
-                confirmation: "Success",
-                data: course
-              })
+              status: 200,
+              confirmation: "Success",
+              data: course
+            })
             : reject({
-                status: 404,
-                confirmation: "Fail",
-                message: "Course Not Found"
-              });
+              status: 404,
+              confirmation: "Fail",
+              message: "Course Not Found"
+            });
         }
       );
     });
@@ -302,15 +302,15 @@ const CourseController = function() {
         .then(deletedCourse => {
           deletedCourse
             ? resolve({
-                status: 200,
-                confirmation: "Success",
-                message: "Successfully deleted Course"
-              })
+              status: 200,
+              confirmation: "Success",
+              message: "Successfully deleted Course"
+            })
             : reject({
-                status: 404,
-                confirmation: "Fail",
-                message: "Course Not Found"
-              });
+              status: 404,
+              confirmation: "Fail",
+              message: "Course Not Found"
+            });
         })
         .catch(err => {
           reject({
@@ -321,6 +321,49 @@ const CourseController = function() {
         });
     });
   };
-};
 
+
+  // Update Course accepted instructors list
+  this.updateAcceptedInstructorList = (id, instructorId) => {
+    return new Promise((resolve, reject) => {
+      // Find Course using id, update instructors array then save.
+      Course.findById(id)
+        .then(course => {
+          if (course) {
+            course.acceptedInstructors.push(instructorId);
+            course.available = true;
+            course
+              .save()
+              .then(() => {
+                resolve({
+                  status: 200,
+                  confirmation: "Success",
+                  message: "Updated Instructor List"
+                });
+              })
+              .catch(err => {
+                reject({
+                  status: 500,
+                  confirmation: "Fail",
+                  message: "Error: " + err
+                });
+              });
+          } else {
+            reject({
+              status: 404,
+              confirmation: "Fail",
+              message: "Course Not Found"
+            });
+          }
+        })
+        .catch(err => {
+          reject({
+            status: 500,
+            confirmation: "Fail",
+            message: "Error: " + err
+          });
+        });
+    });
+  };
+}
 module.exports = new CourseController();
