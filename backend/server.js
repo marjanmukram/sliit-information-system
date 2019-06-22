@@ -5,7 +5,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 var routes = require('./routes');
 const fileUpload = require('express-fileupload');
-const PORT = 4000;
+require('dotenv').config()
+const PORT = process.env;
 
 app.use(bodyParser.urlencoded({extended: false})); 
 app.use(bodyParser.json()); app.use(cors()); 
