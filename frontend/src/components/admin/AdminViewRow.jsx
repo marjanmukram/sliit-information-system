@@ -22,7 +22,7 @@ export default class AdminView extends Component{
       var regId = document.getElementById('delete').name;
 
       
-      axios.delete('http://localhost:4000/api/admin/delete/'+this.state.admin.regId)
+      axios.delete('/admin/delete/'+this.state.admin.regId)
         .then(res => {
           {this.props.loadAdminView()}
           console.log(res)
@@ -59,7 +59,7 @@ export default class AdminView extends Component{
         }
         console.log(admin,this.state.admin._id)
 
-        axios.put("http://localhost:4000/api/admin/updatePassword/"+this.state.admin._id,admin)
+        axios.put("/admin/updatePassword/"+this.state.admin._id,admin)
             .then(res => {
                 alert("New password has been sent by email!")
             })

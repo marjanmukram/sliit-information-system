@@ -25,7 +25,7 @@ export default class AdminView extends Component{
     }
 
     loadAdminView(){
-        fetch('http://localhost:4000/api/admin/get', {method: 'GET'})
+        fetch('/admin/get', {method: 'GET'})
             .then(res => res.json())
             .then(jsonRes =>  {this.setState({admins:jsonRes}) 
                 console.log(jsonRes)})

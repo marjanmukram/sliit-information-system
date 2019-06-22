@@ -18,13 +18,12 @@ export default class AdminRouter extends Component {
         <div>
             <Header />
             <Switch>
-                <Route path="/admin" component={Header} />
                 <Route path="/admin/addAdmin" component={AdminAdd} />
                 <Route path="/admin/viewAdmin" component={AdminView} />
                 <Route path="/admin/editAdmin/:id" component={AdminEdit} />
-                <Route path="/instructor/addInstructor" component={InstructorAdd} />
+                <Route path="/admin/addInstructor" component={InstructorAdd} />
                 {/* <Route path="/admin/viewInstructor" component={InstructorView} /> */}
-                <Route path="/course/addcourse" component={CourseAdd} />
+                <Route path="/admin/addcourse" component={CourseAdd} />
             </Switch>
         </div>
     </BrowserRouter>
