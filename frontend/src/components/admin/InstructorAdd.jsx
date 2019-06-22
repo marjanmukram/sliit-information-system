@@ -89,7 +89,7 @@ export default class InstructorAdd extends Component{
         
         return(
             <div>
-                <Nav buttonType="logout"/>
+                {/* <Nav buttonType="logout"/> */}
 
                 <div className="container form">
                 <h2 className="font text-center">Add Instructor</h2>

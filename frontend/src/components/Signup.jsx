@@ -63,7 +63,7 @@ export default class Signup extends Component{
             <div>
                 <Nav buttonType="login"/>
 
-                <div className="container form">
+                <div className="container signup-form">
                 <h2 className="font text-center">Signup for Students</h2>
                     <br/>
                     <br/>

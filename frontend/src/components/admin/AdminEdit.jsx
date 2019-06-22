@@ -11,31 +11,46 @@ export default class AdminAdd extends Component{
     constructor(props){
         super(props);
         this.state = {
-
+          adminId: this.props.match.params.id,  
           regNo:"",
           name:"",
           email:"",
           qualification:"",
           address:"",
-          phone:""
+          phone:"",
+          password:""
         };
 
         this.onValueChange= this.onValueChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.passwordCreator = this.passwordCreator.bind(this);
+        
     }
 
-    passwordCreator = () => {
-        var length           = 10;
-        var result           = '';
-        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        var charactersLength = characters.length;
-        for ( var i = 0; i < length; i++ ) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-        return result;
+    componentDidMount(){
+        console.log(this.state.adminId)
+        axios.get('http://localhost:4000/api/admin/get/'+this.state.adminId)
+            .then(res => {
+                console.log(res)
+                document.getElementById('regNo').value = res.data.regId;
+                document.getElementById('name').value = res.data.name;
+                document.getElementById('phone').value = res.data.phone;
+                document.getElementById('qualification').value = res.data.qualification;
+                document.getElementById('email').value = res.data.email;
+                document.getElementById('address').value = res.data.address;
+                document.getElementById('gender').value = res.data.gender;
+
+                this.state.regNo = res.data.regId;
+                this.state.name = res.data.name;
+                this.state.email = res.data.email;
+                this.state.qualification= res.data.qualification;
+                this.state.address= res.data.address;
+                this.state.phone= res.data.phone;
+                this.state.password = res.data.password;
+            })
+            .catch(err => console.log(err))
     }
 
+    
     onValueChange(e){
         this.setState({
             [e.target.name]:e.target.value
@@ -55,9 +70,10 @@ export default class AdminAdd extends Component{
 
         if(regNo == "" || name == "" || email == "" || qualification == "" || gender == "Select a gender" || address == "" || phone == "") {
             alert("Field is empty");
+        } else if(isNaN(phone) || phone.length > 10) {
+            alert("Invalid Phone Number");
         } else {
             if(regNo.startsWith("ad") || regNo.startsWith("AD")){
-                const password = this.passwordCreator();
                 const admin = {
                     regId:regNo,
                     name:name,
@@ -65,12 +81,12 @@ export default class AdminAdd extends Component{
                     qualification:qualification,
                     gender:gender,
                     address:address,
-                    phone:phone,
-                    password:password
+                    phone:phone
                 }
-                axios.post("http://localhost:4000/api/admin/add",admin)
+                console.log(this.state.adminId)
+                axios.put("http://localhost:4000/api/admin/update/"+this.state.adminId,admin)
                     .then(res => {
-                        alert("Successfully added!")
+                        alert("Successfully edited!")
                         document.getElementById('regNo').value = "";
                         document.getElementById('name').value = "";
                         document.getElementById('phone').value = "";
@@ -93,7 +109,7 @@ export default class AdminAdd extends Component{
                 {/* <Nav buttonType="logout"/> */}
 
                 <div className="container form">
-                <h2 className="font text-center">Add Administrator</h2>
+                <h2 className="font text-center">Edit Administrator</h2>
                     <br/>
                     <br/>
                     <form  onSubmit={this.handleSubmit}>
@@ -162,7 +178,7 @@ export default class AdminAdd extends Component{
                         </div>
                         <br/>
                         <div className="text-center">
-                            <button type="submit"  className="btn btn-success font">Insert</button>
+                            <button type="submit"  className="btn btn-success font">Edit</button>
                         </div>
                     </form>
                 </div>
