@@ -33,7 +33,7 @@ const SubmissionController = function() {
                       });
                     })
                     .catch(err => {
-                      eject({
+                      reject({
                         status: 500,
                         confirmation: "Fail",
                         message: "Error: " + err

@@ -6,9 +6,10 @@ const StudentController = function() {
   this.updateCourseList = (id, courseId) => {
     return new Promise((resolve, reject) => {
       // Find student using id, update submission array then save.
-      Student.findById(id)
+      Student.find({"regNumber":id})
+      //Student.findById(id)
         .then(student => {
-          if (student) {
+          if (student) {  
             student.courses.push(courseId);
             student
               .save()
