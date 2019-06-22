@@ -169,6 +169,57 @@ const ExamController = function() {
         });
     });
   };
+
+  // Get exams using courseId (ie: A course's exams)
+  this.getByCourseId = courseId => {
+    return new Promise((resolve, reject) => {
+      Exam.find({ course: courseId })
+        .populate({ path: "course", model: "Course" })
+        .populate({ path: "submissions", model: "Submission" })
+        .then(exam => {
+          exam
+            ? resolve({
+                status: 200,
+                confirmation: "Success",
+                data: exam
+              })
+            : reject({
+                status: 404,
+                confirmation: "Fail",
+                message: "Exam Not Found"
+              });
+        })
+        .catch(err => {
+          reject({ status: 500, confirmation: "Fail", message: "Error" + err });
+        });
+    });
+  };
+
+  // Upload exam file
+  this.uploadFile = (file, data) => {
+    return new Promise((resolve, reject) => {
+      let courseCode = data.courseCode;
+      let examName = data.examName;
+      let url = `public/uploads/${courseCode}/${examName}/${file.name}`;
+
+      file.mv(url, function(err) {
+        if (err) {
+          reject({
+            status: 400,
+            confirmation: "Fail",
+            message: "File Not Uploaded: " + err
+          });
+        } else {
+          console.log("File uploaded successfully");
+          resolve({
+            status: 200,
+            confirmation: "Success",
+            data: `/uploads/${courseCode}/${examName}/${file.name}`
+          });
+        }
+      });
+    });
+  };
 };
 
 module.exports = new ExamController();

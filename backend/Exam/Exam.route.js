@@ -62,4 +62,28 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+// Get Exams for a given courseId
+// http://localhost:4000/api/exams/course/:courseId
+router.get("/course/:courseId", (req, res) => {
+  ExamController.getByCourseId(req.params.courseId)
+    .then(data => {
+      res.status(data.status).json(data);
+    })
+    .catch(err => {
+      res.status(err.status).json(err);
+    });
+});
+
+// Upload exam file to public/uploads directory
+// http://localhost:4000/api/exams/file
+router.post("/file", (req, res) => {
+  ExamController.uploadFile(req.files.examFile, req.body)
+    .then(data => {
+      res.status(data.status).json(data);
+    })
+    .catch(err => {
+      res.status(err.status).json(err);
+    });
+});
+
 module.exports = router;
