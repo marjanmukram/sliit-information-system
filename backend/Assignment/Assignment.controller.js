@@ -175,7 +175,7 @@ const AssignmentController = function() {
   // Get assignments using courseId (ie: A course's assignments)
   this.getByCourseId = courseId => {
     return new Promise((resolve, reject) => {
-      Assignment.findOne({ course: courseId })
+      Assignment.find({ course: courseId })
         .populate({ path: "course", model: "Course" })
         .populate({ path: "submissions", model: "Submission" })
         .then(assignment => {
