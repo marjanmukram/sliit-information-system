@@ -1,51 +1,52 @@
 import React from 'react'
 import Course from './course'
 import './viewCourses.css'
+import JoinCourse from './joinCourse'
 import ViewAssignemnts from './viewAssignments'
 
-class ViewCourses extends React.PureComponent{
-    constructor(props){
+class ViewCourses extends React.PureComponent {
+    constructor(props) {
         super(props);
-        this.state={
-            selectedCourse:null
+        this.state = {
+            selectedCourse: null
         }
     }
 
-    componentDidMount(){
-        fetch("http://localhost:4000/api/courses",{
+    componentDidMount() {
+        fetch("http://localhost:4000/api/courses", {
             method: 'GET',
         }).then((response) => {
-             response.json().then((body) => {
-                if(body.confirmation==="Success"){
-                     let availableCourses = body.data.filter(course => {
+            response.json().then((body) => {
+                if (body.confirmation === "Success") {
+                    let availableCourses = body.data.filter(course => {
                         return course.available
                     });
-                    this.setState({availableCourses})
+                    this.setState({ availableCourses })
                 }
-            }); 
+            });
         });
     }
-    
-    render(){
-        return(
+
+    render() {
+        return (
             <div className="container">
                 <h2>Courses</h2>
                 <div>
-                    {this.state.availableCourses && this.state.availableCourses.length > 0 && this.state.availableCourses.map( (course) => {
-                        return(
-                            <div 
+                    {this.state.availableCourses && this.state.availableCourses.length > 0 && this.state.availableCourses.map((course) => {
+                        return (
+                            <div
                                 className="card cardStyles"
                                 key={course._id}
-                                 onClick={ () => {
-                                        this.setState({ selectedCourse:course })
-                                }} 
+                                onClick={() => {
+                                    this.setState({ selectedCourse: course })
+                                }}
                             >
-                                <Course 
-                                    code={course.code} 
-                                    name={course.name} 
+                                <Course
+                                    code={course.code}
+                                    name={course.name}
                                     selectedCourse={course}
                                 />
-                                {this.state.selectedCourse && this.state.selectedCourse._id === course._id && <ViewAssignemnts  assignments={this.state.selectedCourse.assignments} /> }
+                                {this.state.selectedCourse && this.state.selectedCourse._id === course._id && <ViewAssignemnts assignments={this.state.selectedCourse.assignments} />}
                             </div>
                         )
                     })}
