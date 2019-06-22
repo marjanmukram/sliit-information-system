@@ -1,21 +1,32 @@
 const Student = require("../models/Student");
+const CourseController = require("../Course/Course.controller");
 
 const StudentController = function() {
   // Update Courses List of Student
   this.updateCourseList = (id, courseId) => {
     return new Promise((resolve, reject) => {
       // Find student using id, update submission array then save.
-      Student.findById(id)
+      Student.find({"regNumber":id})
+      //Student.findById(id)
         .then(student => {
-          if (student) {
+          if (student) {  
             student.courses.push(courseId);
             student
               .save()
               .then(() => {
-                resolve({
-                  status: 200,
-                  confirmation: "Success",
-                  message: "Updated Courses List"
+                CourseController.updateStudentList(courseId, id)
+                  .then(() => {
+                    resolve({
+                      status: 200,
+                      confirmation: "Success",
+                      message: "Updated Courses List"
+                    });
+                  })
+                  .catch();
+                reject({
+                  status: 500,
+                  confirmation: "Fail",
+                  message: "Error: " + err
                 });
               })
               .catch(err => {

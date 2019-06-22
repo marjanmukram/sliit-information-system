@@ -6,7 +6,8 @@ const Student = new Schema({
   regNumber: {
     type: String,
     length: 10,
-    required: true
+    required: true,
+    unique:true
   },
   name: {
     type: String,
@@ -30,6 +31,12 @@ const Student = new Schema({
   password: {
     type: String,
     required: true
+  },
+  year:{
+    type:String
+  },
+  semester:{
+    type:String
   },
   courses: [
     {
