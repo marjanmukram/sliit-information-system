@@ -74,4 +74,16 @@ router.get("/course/:courseId", (req, res) => {
     });
 });
 
+// Upload assignment file to public/uploads directory
+// http://localhost:4000/api/assignments/file
+router.post("/file", (req, res) => {
+  AssignmentController.uploadFile(req.files.assignmentFile, req.body)
+    .then(data => {
+      res.status(data.status).json(data);
+    })
+    .catch(err => {
+      res.status(err.status).json(err);
+    });
+})
+
 module.exports = router;

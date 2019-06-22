@@ -1,7 +1,7 @@
 const Assignment = require("../models/Assignment.model");
 const CourseController = require("../Course/Course.controller");
 
-const AssignmentController = function() {
+const AssignmentController = function () {
   // Insert Assignment details
   this.create = data => {
     return new Promise((resolve, reject) => {
@@ -65,15 +65,15 @@ const AssignmentController = function() {
         .then(assignment => {
           assignment
             ? resolve({
-                status: 200,
-                confirmation: "Success",
-                data: assignment
-              })
+              status: 200,
+              confirmation: "Success",
+              data: assignment
+            })
             : reject({
-                status: 404,
-                confirmation: "Fail",
-                message: "Assignment Not Found"
-              });
+              status: 404,
+              confirmation: "Fail",
+              message: "Assignment Not Found"
+            });
         })
         .catch(err => {
           reject({ status: 500, confirmation: "Fail", message: "Error" + err });
@@ -89,15 +89,15 @@ const AssignmentController = function() {
         assignment => {
           assignment
             ? resolve({
-                status: 200,
-                confirmation: "Success",
-                data: assignment
-              })
+              status: 200,
+              confirmation: "Success",
+              data: assignment
+            })
             : reject({
-                status: 404,
-                confirmation: "Fail",
-                message: "Assignment Not Found"
-              });
+              status: 404,
+              confirmation: "Fail",
+              message: "Assignment Not Found"
+            });
         }
       );
     });
@@ -152,15 +152,15 @@ const AssignmentController = function() {
         .then(deletedAssignment => {
           deletedAssignment
             ? resolve({
-                status: 200,
-                confirmation: "Success",
-                message: "Successfully deleted Assignment"
-              })
+              status: 200,
+              confirmation: "Success",
+              message: "Successfully deleted Assignment"
+            })
             : reject({
-                status: 404,
-                confirmation: "Fail",
-                message: "Assignment Not Found"
-              });
+              status: 404,
+              confirmation: "Fail",
+              message: "Assignment Not Found"
+            });
         })
         .catch(err => {
           reject({
@@ -181,19 +181,45 @@ const AssignmentController = function() {
         .then(assignment => {
           assignment
             ? resolve({
-                status: 200,
-                confirmation: "Success",
-                data: assignment
-              })
+              status: 200,
+              confirmation: "Success",
+              data: assignment
+            })
             : reject({
-                status: 404,
-                confirmation: "Fail",
-                message: "Assignment Not Found"
-              });
+              status: 404,
+              confirmation: "Fail",
+              message: "Assignment Not Found"
+            });
         })
         .catch(err => {
           reject({ status: 500, confirmation: "Fail", message: "Error" + err });
         });
+    });
+  };
+
+  // Upload assignment file
+  this.uploadFile = (file, data) => {
+    return new Promise((resolve, reject) => {
+      let courseCode = data.courseCode;
+      let assignmentName = data.assignmentName;
+      let url = `public/uploads/${courseCode}/${assignmentName}/${file.name}`;
+
+      file.mv(url, function (err) {
+        if (err) {
+          reject({
+            status: 400,
+            confirmation: "Fail",
+            message: "File Not Uploaded: " + err
+          });
+        } else {
+          console.log("File uploaded successfully");
+          resolve({
+            status: 200,
+            confirmation: "Success",
+            data: `/uploads/${courseCode}/${assignmentName}/${file.name}`
+          });
+        }
+      });
     });
   };
 };
