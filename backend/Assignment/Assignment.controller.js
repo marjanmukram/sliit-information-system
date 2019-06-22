@@ -61,7 +61,7 @@ const AssignmentController = function() {
     return new Promise((resolve, reject) => {
       Assignment.findById(id)
         .populate({ path: "course", model: "Course" })
-        // .populate({ path: "submissions", model: "Submission" })
+        .populate({ path: "submissions", model: "Submission" })
         .then(assignment => {
           assignment
             ? resolve({
@@ -85,21 +85,22 @@ const AssignmentController = function() {
   this.update = (id, data) => {
     return new Promise((resolve, reject) => {
       delete data._id;
-      Assignment.findByIdAndUpdate(id, data, { useFindAndModify: false }).then(
-        assignment => {
-          assignment
-            ? resolve({
-                status: 200,
-                confirmation: "Success",
-                data: assignment
-              })
-            : reject({
-                status: 404,
-                confirmation: "Fail",
-                message: "Assignment Not Found"
-              });
-        }
-      );
+      Assignment.findByIdAndUpdate(id, data, {
+        useFindAndModify: false,
+        new: true
+      }).then(assignment => {
+        assignment
+          ? resolve({
+              status: 200,
+              confirmation: "Success",
+              data: assignment
+            })
+          : reject({
+              status: 404,
+              confirmation: "Fail",
+              message: "Assignment Not Found"
+            });
+      });
     });
   };
 
@@ -169,6 +170,57 @@ const AssignmentController = function() {
             message: "Error: " + err
           });
         });
+    });
+  };
+
+  // Get assignments using courseId (ie: A course's assignments)
+  this.getByCourseId = courseId => {
+    return new Promise((resolve, reject) => {
+      Assignment.find({ course: courseId })
+        .populate({ path: "course", model: "Course" })
+        .populate({ path: "submissions", model: "Submission" })
+        .then(assignment => {
+          assignment
+            ? resolve({
+                status: 200,
+                confirmation: "Success",
+                data: assignment
+              })
+            : reject({
+                status: 404,
+                confirmation: "Fail",
+                message: "Assignment Not Found"
+              });
+        })
+        .catch(err => {
+          reject({ status: 500, confirmation: "Fail", message: "Error" + err });
+        });
+    });
+  };
+
+  // Upload assignment file
+  this.uploadFile = (file, data) => {
+    return new Promise((resolve, reject) => {
+      let courseCode = data.courseCode;
+      let assignmentName = data.assignmentName;
+      let url = `public/uploads/${courseCode}/${assignmentName}/${file.name}`;
+
+      file.mv(url, function(err) {
+        if (err) {
+          reject({
+            status: 400,
+            confirmation: "Fail",
+            message: "File Not Uploaded: " + err
+          });
+        } else {
+          console.log("File uploaded successfully");
+          resolve({
+            status: 200,
+            confirmation: "Success",
+            data: `/uploads/${courseCode}/${assignmentName}/${file.name}`
+          });
+        }
+      });
     });
   };
 };
