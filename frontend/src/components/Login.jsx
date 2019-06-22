@@ -36,7 +36,7 @@ export default class Login extends Component{
 
             // regNo begins with AD or ST or IN use particular GET to authenticate
             if(regNo.startsWith("A") || regNo.startsWith("a")){
-                axios.get('http://localhost:4000/api/admin/getByReg/'+ regNo)
+                axios.get('/admin/getByReg/'+ regNo)
                     .then(resJson => {
                         console.log(resJson)
                         if(resJson.data[0].password === password) {
@@ -49,7 +49,7 @@ export default class Login extends Component{
             } else if(regNo.startsWith("S") || regNo.startsWith("s")){
                 console.log("Student");
             } else if(regNo.startsWith("I") || regNo.startsWith("i")){
-                axios.get('http://localhost:4000/api/instructor/getByReg/'+regNo)
+                axios.get('/instructor/getByReg/'+regNo)
                     .then(resJson => {
                         if(resJson.data[0].password == password) {
                             ReactDOM.render(<AdminHome/>, document.getElementById('root'));

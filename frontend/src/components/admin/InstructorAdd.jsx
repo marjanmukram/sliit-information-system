@@ -67,7 +67,7 @@ export default class InstructorAdd extends Component{
                     phone:phone,
                     password:password
                 }
-                axios.post("http://localhost:4000/api/instructor/add",instructor)
+                axios.post("/api/instructor/add",instructor)
                     .then(res => {
                         alert("Successfully added!")
                         document.getElementById('regNo').value = "";

@@ -28,7 +28,7 @@ export default class AdminAdd extends Component{
 
     componentDidMount(){
         console.log(this.state.adminId)
-        axios.get('http://localhost:4000/api/admin/get/'+this.state.adminId)
+        axios.get('/admin/get/'+this.state.adminId)
             .then(res => {
                 console.log(res)
                 document.getElementById('regNo').value = res.data.regId;
@@ -70,7 +70,7 @@ export default class AdminAdd extends Component{
 
         if(regNo == "" || name == "" || email == "" || qualification == "" || gender == "Select a gender" || address == "" || phone == "") {
             alert("Field is empty");
-        } else if(isNaN(phone) || phone.length > 10) {
+        } else if(isNaN(phone) || phone.length > 12) {
             alert("Invalid Phone Number");
         } else {
             if(regNo.startsWith("ad") || regNo.startsWith("AD")){
@@ -84,7 +84,7 @@ export default class AdminAdd extends Component{
                     phone:phone
                 }
                 console.log(this.state.adminId)
-                axios.put("http://localhost:4000/api/admin/update/"+this.state.adminId,admin)
+                axios.put("/admin/update/"+this.state.adminId,admin)
                     .then(res => {
                         alert("Successfully edited!")
                         document.getElementById('regNo').value = "";
