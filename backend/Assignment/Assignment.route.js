@@ -62,4 +62,16 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+// Get Assignments for a given courseId
+// http://localhost:4000/api/assignments/course/:courseId
+router.get("/course/:courseId", (req, res) => {
+  AssignmentController.getByCourseId(req.params.courseId)
+    .then(data => {
+      res.status(data.status).json(data);
+    })
+    .catch(err => {
+      res.status(err.status).json(err);
+    });
+});
+
 module.exports = router;

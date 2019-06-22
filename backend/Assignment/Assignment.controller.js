@@ -61,7 +61,7 @@ const AssignmentController = function() {
     return new Promise((resolve, reject) => {
       Assignment.findById(id)
         .populate({ path: "course", model: "Course" })
-        // .populate({ path: "submissions", model: "Submission" })
+        .populate({ path: "submissions", model: "Submission" })
         .then(assignment => {
           assignment
             ? resolve({
@@ -168,6 +168,31 @@ const AssignmentController = function() {
             confirmation: "Fail",
             message: "Error: " + err
           });
+        });
+    });
+  };
+
+  // Get assignments using courseId (ie: A course's assignments)
+  this.getByCourseId = courseId => {
+    return new Promise((resolve, reject) => {
+      Assignment.findOne({ course: courseId })
+        .populate({ path: "course", model: "Course" })
+        .populate({ path: "submissions", model: "Submission" })
+        .then(assignment => {
+          assignment
+            ? resolve({
+                status: 200,
+                confirmation: "Success",
+                data: assignment
+              })
+            : reject({
+                status: 404,
+                confirmation: "Fail",
+                message: "Assignment Not Found"
+              });
+        })
+        .catch(err => {
+          reject({ status: 500, confirmation: "Fail", message: "Error" + err });
         });
     });
   };
