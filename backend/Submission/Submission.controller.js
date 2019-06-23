@@ -103,7 +103,7 @@ const SubmissionController = function() {
   this.getAll = () => {
     return new Promise((resolve, reject) => {
       Submission.find()
-        .populate({ path: "studentId", model: "Student" })
+        .populate({ path: "studentId", model: "student" })
         .then(submissions => {
           resolve({ status: 200, confirmation: "Success", data: submissions });
         })
@@ -117,7 +117,7 @@ const SubmissionController = function() {
   this.get = id => {
     return new Promise((resolve, reject) => {
       Submission.findById(id)
-        .populate({ path: "studentId", model: "Student" })
+        .populate({ path: "studentId", model: "student" })
         .then(submission => {
           submission
             ? resolve({

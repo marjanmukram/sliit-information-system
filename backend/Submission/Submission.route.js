@@ -77,7 +77,7 @@ router.get("/assignment/:assignmentId", (req, res) => {
 // Get Submission for a given examId
 // http://localhost:4000/api/submissions/exam/:examId
 router.get("/exam/:examId", (req, res) => {
-  SubmissionController.getByAssignmentId(req.params.examId)
+  SubmissionController.getByExamId(req.params.examId)
     .then(data => {
       res.status(data.status).json(data);
     })
