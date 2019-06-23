@@ -1,7 +1,7 @@
 const Assignment = require("../models/Assignment.model");
 const CourseController = require("../Course/Course.controller");
 
-const AssignmentController = function () {
+const AssignmentController = function() {
   // Insert Assignment details
   this.create = data => {
     return new Promise((resolve, reject) => {
@@ -65,15 +65,15 @@ const AssignmentController = function () {
         .then(assignment => {
           assignment
             ? resolve({
-              status: 200,
-              confirmation: "Success",
-              data: assignment
-            })
+                status: 200,
+                confirmation: "Success",
+                data: assignment
+              })
             : reject({
-              status: 404,
-              confirmation: "Fail",
-              message: "Assignment Not Found"
-            });
+                status: 404,
+                confirmation: "Fail",
+                message: "Assignment Not Found"
+              });
         })
         .catch(err => {
           reject({ status: 500, confirmation: "Fail", message: "Error" + err });
@@ -85,21 +85,22 @@ const AssignmentController = function () {
   this.update = (id, data) => {
     return new Promise((resolve, reject) => {
       delete data._id;
-      Assignment.findByIdAndUpdate(id, data, { useFindAndModify: false }).then(
-        assignment => {
-          assignment
-            ? resolve({
+      Assignment.findByIdAndUpdate(id, data, {
+        useFindAndModify: false,
+        new: true
+      }).then(assignment => {
+        assignment
+          ? resolve({
               status: 200,
               confirmation: "Success",
               data: assignment
             })
-            : reject({
+          : reject({
               status: 404,
               confirmation: "Fail",
               message: "Assignment Not Found"
             });
-        }
-      );
+      });
     });
   };
 
@@ -152,15 +153,15 @@ const AssignmentController = function () {
         .then(deletedAssignment => {
           deletedAssignment
             ? resolve({
-              status: 200,
-              confirmation: "Success",
-              message: "Successfully deleted Assignment"
-            })
+                status: 200,
+                confirmation: "Success",
+                message: "Successfully deleted Assignment"
+              })
             : reject({
-              status: 404,
-              confirmation: "Fail",
-              message: "Assignment Not Found"
-            });
+                status: 404,
+                confirmation: "Fail",
+                message: "Assignment Not Found"
+              });
         })
         .catch(err => {
           reject({
@@ -181,15 +182,15 @@ const AssignmentController = function () {
         .then(assignment => {
           assignment
             ? resolve({
-              status: 200,
-              confirmation: "Success",
-              data: assignment
-            })
+                status: 200,
+                confirmation: "Success",
+                data: assignment
+              })
             : reject({
-              status: 404,
-              confirmation: "Fail",
-              message: "Assignment Not Found"
-            });
+                status: 404,
+                confirmation: "Fail",
+                message: "Assignment Not Found"
+              });
         })
         .catch(err => {
           reject({ status: 500, confirmation: "Fail", message: "Error" + err });
@@ -204,7 +205,7 @@ const AssignmentController = function () {
       let assignmentName = data.assignmentName;
       let url = `public/uploads/${courseCode}/${assignmentName}/${file.name}`;
 
-      file.mv(url, function (err) {
+      file.mv(url, function(err) {
         if (err) {
           reject({
             status: 400,
