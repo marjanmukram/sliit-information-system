@@ -55,6 +55,8 @@ export default class AdminAdd extends Component{
 
         if(regNo == "" || name == "" || email == "" || qualification == "" || gender == "Select a gender" || address == "" || phone == "") {
             alert("Field is empty");
+        } else if(isNaN(phone) || phone.length > 12) {
+            alert("Invalid Phone Number");
         } else {
             if(regNo.startsWith("ad") || regNo.startsWith("AD")){
                 const password = this.passwordCreator();
@@ -68,7 +70,7 @@ export default class AdminAdd extends Component{
                     phone:phone,
                     password:password
                 }
-                axios.post("http://localhost:4000/api/admin/add",admin)
+                axios.post("/admin/add",admin)
                     .then(res => {
                         alert("Successfully added!")
                         document.getElementById('regNo').value = "";

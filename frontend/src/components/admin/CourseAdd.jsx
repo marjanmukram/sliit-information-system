@@ -32,7 +32,7 @@ export default class CourseAdd extends Component{
     }
 
     componentDidMount(){
-        fetch('http://localhost:4000/api/instructor/get', {method: 'GET'})
+        fetch('/api/instructor/get', {method: 'GET'})
             .then(res => res.json())
             .then(jsonRes =>  {this.setState({instructors:jsonRes.data}) 
                 console.log(jsonRes)})
