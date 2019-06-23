@@ -103,7 +103,7 @@ const SubmissionController = function() {
   this.getAll = () => {
     return new Promise((resolve, reject) => {
       Submission.find()
-        // .populate({ path: "studentId", model: "Student" })
+        .populate({ path: "studentId", model: "student" })
         .then(submissions => {
           resolve({ status: 200, confirmation: "Success", data: submissions });
         })
@@ -117,7 +117,7 @@ const SubmissionController = function() {
   this.get = id => {
     return new Promise((resolve, reject) => {
       Submission.findById(id)
-        // .populate({ path: "studentId", model: "Student" })
+        .populate({ path: "studentId", model: "student" })
         .then(submission => {
           submission
             ? resolve({
@@ -141,21 +141,22 @@ const SubmissionController = function() {
   this.update = (id, data) => {
     return new Promise((resolve, reject) => {
       delete data._id;
-      Submission.findByIdAndUpdate(id, data, { useFindAndModify: false }).then(
-        submission => {
-          submission
-            ? resolve({
-                status: 200,
-                confirmation: "Success",
-                data: submission
-              })
-            : reject({
-                status: 404,
-                confirmation: "Fail",
-                message: "Submission Not Found"
-              });
-        }
-      );
+      Submission.findByIdAndUpdate(id, data, {
+        useFindAndModify: false,
+        new: true
+      }).then(submission => {
+        submission
+          ? resolve({
+              status: 200,
+              confirmation: "Success",
+              data: submission
+            })
+          : reject({
+              status: 404,
+              confirmation: "Fail",
+              message: "Submission Not Found"
+            });
+      });
     });
   };
 
@@ -185,6 +186,53 @@ const SubmissionController = function() {
         });
     });
   };
-};
 
+  // Get all submission of an assignment
+  this.getByAssignmentId = assignmentId => {
+    return new Promise((resolve, reject) => {
+      Submission.find({ assignmentId: assignmentId })
+        .populate({ path: "studentId", model: "student" })
+        .then(submissions => {
+          submissions
+            ? resolve({
+                status: 200,
+                confirmation: "Success",
+                data: submissions
+              })
+            : reject({
+                status: 404,
+                confirmation: "Fail",
+                message: "Assignment Not Found"
+              });
+        })
+        .catch(err => {
+          reject({ status: 500, confirmation: "Fail", message: "Error" + err });
+        });
+    });
+  };
+
+  // Get all submission of an exam
+  this.getByExamId = examId => {
+    return new Promise((resolve, reject) => {
+      Submission.find({ examId: examId })
+        .populate({ path: "studentId", model: "student" })
+        .then(submissions => {
+          submissions
+            ? resolve({
+                status: 200,
+                confirmation: "Success",
+                data: submissions
+              })
+            : reject({
+                status: 404,
+                confirmation: "Fail",
+                message: "Exam Not Found"
+              });
+        })
+        .catch(err => {
+          reject({ status: 500, confirmation: "Fail", message: "Error" + err });
+        });
+    });
+  };
+};
 module.exports = new SubmissionController();
