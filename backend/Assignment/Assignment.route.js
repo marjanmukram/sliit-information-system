@@ -84,6 +84,6 @@ router.post("/file", (req, res) => {
     .catch(err => {
       res.status(err.status).json(err);
     });
-})
+});
 
 module.exports = router;

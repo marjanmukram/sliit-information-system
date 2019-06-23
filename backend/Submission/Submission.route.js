@@ -62,4 +62,28 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+// Get Submission for a given assignmentId
+// http://localhost:4000/api/submissions/assignment/:assignmentId
+router.get("/assignment/:assignmentId", (req, res) => {
+  SubmissionController.getByAssignmentId(req.params.assignmentId)
+    .then(data => {
+      res.status(data.status).json(data);
+    })
+    .catch(err => {
+      res.status(err.status).json(err);
+    });
+});
+
+// Get Submission for a given examId
+// http://localhost:4000/api/submissions/exam/:examId
+router.get("/exam/:examId", (req, res) => {
+  SubmissionController.getByAssignmentId(req.params.examId)
+    .then(data => {
+      res.status(data.status).json(data);
+    })
+    .catch(err => {
+      res.status(err.status).json(err);
+    });
+});
+
 module.exports = router;
